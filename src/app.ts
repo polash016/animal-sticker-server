@@ -13,11 +13,19 @@ dotenv.config();
 app.use(cors());
 app.use(express.json());
 
+app.get("/", (req, res) => {
+  res.send("Animal Sticker Server Running !");
+});
+
 const animalRouter = express.Router();
 const categoryRouter = express.Router();
 
 app.use("/api/v1/animal", animalRouter);
 app.use("/api/v1/category", categoryRouter);
+
+animalRouter.get("/", animalStickerController.getAllAnimalSticker);
+
+categoryRouter.get("/", categoryController.getAllCategory);
 
 animalRouter.post(
   "/create",
@@ -35,10 +43,6 @@ app.use((req: Request, res: Response, next: NextFunction) => {
     message: "Not Found",
     error: [{ path: req.originalUrl, message: "Route Not Found" }],
   });
-});
-
-app.get("/", (req, res) => {
-  res.send("Hello World!");
 });
 
 export default app;

@@ -14,6 +14,7 @@ const getAllAnimalSticker = async (
     res.json({
       success: true,
       message: "Animal data fetched successfully",
+      total: result.length,
       data: result,
     });
   } catch (error: any) {
